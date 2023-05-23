@@ -1,4 +1,3 @@
-# Import necessary libraries
 import requests
 from bs4 import BeautifulSoup
 
@@ -48,14 +47,14 @@ def exam_codes():
 
     # Initialize an empty dictionary to store the exam codes
     exam_codes = {
-        "1-1": [],
-        "1-2": [],
-        "2-1": [],
-        "2-2": [],
-        "3-1": [],
-        "3-2": [],
-        "4-1": [],
-        "4-2": [],
+        "1-1": set(),
+        "1-2": set(),
+        "2-1": set(),
+        "2-2": set(),
+        "3-1": set(),
+        "3-2": set(),
+        "4-1": set(),
+        "4-2": set(),
     }
 
     # Loop through each row of the table and extract the exam code for R18 batch
@@ -68,10 +67,10 @@ def exam_codes():
             category = categorize_exam_code(result_text, exam_code)
 
             if category is not None:
-                exam_codes[category].append(exam_code)
+                exam_codes[category].add(exam_code)
 
     # Sort the exam codes in each category and return the dictionary
-    for category, codes in exam_codes.items():
-        exam_codes[category] = sorted(codes)
-    return exam_codes
+    for i in exam_codes:
+        exam_codes[i] = sorted(exam_codes[i])
 
+    return exam_codes
